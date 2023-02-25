@@ -22,3 +22,4 @@ WTForms==3.0.1
 gunicorn==20.1.0
 Flask-DotEnv==0.1.2
 pip==23.0.1
+dotenv==0.0.5
