@@ -9,23 +9,31 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm,  RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
-# import os
+import os
 # from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.app_context().push()
 
+# SECRET_KEY right here
+# app.config['SECRET_KEY'] = "look_in_69"
+
 # SECRET_KEY stored in .env file
 # load_dotenv("C:/Users/pocitac/PycharmProjects/EnvironmentVariables/.env")
 # app.config['SECRET_KEY'] = os.getenv("APP_SECRET_KEY")
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+
+# SECRET_KEY stored in Environment at render.com
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# local DB - SQLite
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# remote db - PostgreSQL
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
